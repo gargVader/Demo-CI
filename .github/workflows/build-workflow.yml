@@ -20,7 +20,7 @@ jobs:
 
       - name: Get current date
         id: get_curr_date
-        run: echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+        run: echo "DATE::$(date +%Y-%m-%d)" >> $GITHUB_ENV
       #        steps.get_curr_date.outputs.DATE
 
       - name: Get current branch name
