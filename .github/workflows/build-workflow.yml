@@ -15,15 +15,13 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - run: echo girish branch name = ${{ github.head_ref || github.ref_name }}
-
       - name: Build project
         run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
-          name: demo-ci-debug.apk
+          name: demo-ci-debug-${{ github.head_ref || github.ref_name }}.apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
 
