@@ -22,6 +22,7 @@ jobs:
         id: get_curr_date
         run: echo "DATE::$(date +%Y-%m-%d)" >> $GITHUB_ENV
       #        steps.get_curr_date.outputs.DATE
+      - run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
 
       - name: Get current branch name
         id: get_curr_branch
@@ -43,12 +44,12 @@ jobs:
 #          path: app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
 
 
-  test:
-    runs-on: 'ubuntu-latest'
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Run all the tests
-        run: ./gradlew test
+#  test:
+#    runs-on: 'ubuntu-latest'
+#    steps:
+#      - name: Checkout Repo
+#        uses: actions/checkout@v3
+#
+#      - name: Run all the tests
+#        run: ./gradlew test
 
