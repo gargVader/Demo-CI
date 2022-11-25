@@ -1,5 +1,5 @@
 # Name of workflow
-name: Build Workflow
+name: Pre Merge Checks
 
 # Triggering this workflow
 on:
@@ -12,16 +12,21 @@ on:
 
 # Jobs to be run in this workflow
 jobs:
- my_first_job:
-   name: My First Job
-   runs-on: ubuntu-latest
+ ktlint:
+   runs-on: 'ubuntu-latest'
    steps:
      - name: Checkout Repo
-       uses: actions/checkout@v2
-
-     - name: Build everything
-       run: ./gradlew assemble
+       uses: actions/checkout@v3
 
      - name: Run ktlint
        run: ./gradlew ktlintCheck
+
+ test:
+   runs-on: 'ubuntu-latest'
+   steps:
+     - name: Checkout Repo
+       uses: actions/checkout@v3
+
+     - name: Run all the tests
+       run: ./gradlew test
 
