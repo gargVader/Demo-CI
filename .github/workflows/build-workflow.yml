@@ -15,8 +15,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-#      - name: Build project
-#        run: ./gradlew assembleDebug
+      - name: Build project
+        run: ./gradlew assembleDebug
 
 #      - name: Get current date
 #        id: get_curr_date
@@ -32,6 +32,7 @@ jobs:
 #        id: get_apk_name
 #        run: echo "APK_NAME=demo-${{ steps.get_curr_branch.outputs.BRANCH_NAME }}-${{ steps.get_curr_date.outputs.DATE }}" >> $GITHUB_OUTPUT
       #        steps.get_apk_name.outputs.APK_NAME
+      - run: find build/outputs/apk/debug/*.apk
       - name: Get apk info
         id: apk-info
         uses: hkusu/apk-info-action@v1
