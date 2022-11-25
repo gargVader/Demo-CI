@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - '*'
-  pull_request:
-    branches:
-      - '*'
 
 # Jobs to be run in this workflow
 jobs:
@@ -24,8 +21,9 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
-          name: demo-ci-debug-${{ GITHUB_REF##*/ }}.apk
+          name: demo-ci-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
+        run: echo girish branch name = ${{ github.head_ref || github.ref_name }}
 
 
   test:
