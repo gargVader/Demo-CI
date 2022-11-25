@@ -13,13 +13,13 @@ on:
 # Jobs to be run in this workflow
 jobs:
   my_first_job:
-    runs-on: [ubuntu-latest]
+    runs-on: [ ubuntu-latest ]
     steps:
       - name: Checkout Repo
-       uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
       - name: Build everything
-       uses: ./gradlew assemble
+      uses: ./gradlew assemble
 
       - name: Run ktlint
         uses: ./gradlew ktlintCheck
