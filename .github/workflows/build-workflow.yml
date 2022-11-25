@@ -20,8 +20,8 @@ jobs:
        uses: actions/checkout@v2
 
      - name: Build everything
-       runs: ./gradlew assemble
+       run: ./gradlew assemble
 
      - name: Run ktlint
-       runs: ./gradlew ktlintCheck
+       run: ./gradlew ktlintCheck
 
