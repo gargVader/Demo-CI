@@ -20,7 +20,7 @@ jobs:
 
       - name: Get current date
         id: get_curr_date
-        run: echo "::set-output name=DATE::$(date +'%Y-%m-%d')"
+        run: echo "DATE::$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       #        steps.get_curr_date.outputs.DATE
 
       - name: Get current branch name
@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.get_apk_name.outputs.APK_NAME }}.apk
-          path: app/build/outputs/apk/debug/demo-ci-debug-${{ github.head_ref || github.ref_name }}.apk
+          path: app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
 
 
   test:
