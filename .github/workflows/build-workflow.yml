@@ -14,64 +14,48 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-#
+
       - name: Build project
         run: ./gradlew assembleDebug
 
-#      - name: Get current date
-#        id: get_curr_date
-#        run: echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+      - name: Get current date
+        id: get_curr_date
+        run: echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
       #        steps.get_curr_date.outputs.DATE
 
-#      - name: Get current branch name
-#        id: get_curr_branch
-#        run: echo "BRANCH_NAME=${{ github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
-      #        steps.get_curr_branch.outputs.BRANCH_NAME
+      - name: Get current branch name
+        id: get_curr_branch
+        run: echo "BRANCH_NAME=${{ github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
+        #        steps.get_curr_branch.outputs.BRANCH_NAME
 
-#      - name: Get APK name
-#        id: get_apk_name
-#        run: echo "APK_NAME=demo-${{ steps.get_curr_branch.outputs.BRANCH_NAME }}-${{ steps.get_curr_date.outputs.DATE }}" >> $GITHUB_OUTPUT
-      #        steps.get_apk_name.outputs.APK_NAME
-      - run: pwd
-      - run: find app/build/outputs/apk/debug/*.apk
       - name: Get apk info
         id: apk-info
         uses: hkusu/apk-info-action@v1
         with:
           apk-path: app/build/outputs/apk/debug/app-debug.apk
-      - name: Show apk info
-        run: |
-          echo '${{ steps.apk-info.outputs.application-name }}'
-          echo '${{ steps.apk-info.outputs.application-id }}'
-          echo '${{ steps.apk-info.outputs.version-code }}'
-          echo '${{ steps.apk-info.outputs.version-name }}'
-          echo '${{ steps.apk-info.outputs.min-sdk-version }}'
-          echo '${{ steps.apk-info.outputs.target-sdk-version }}'
-          echo '${{ steps.apk-info.outputs.compile-sdk-version }}'
-          echo '${{ steps.apk-info.outputs.uses-permissions }}'
-          echo '${{ steps.apk-info.outputs.debuggable }}'
-          echo '${{ steps.apk-info.outputs.allow-backup }}'
-          echo '${{ steps.apk-info.outputs.supports-rtl }}'
-          echo '${{ steps.apk-info.outputs.file-size }}'
-          echo '${{ steps.apk-info.outputs.readable-file-size }}'
-#
+      # steps.apk-info.outputs.version-name
 
-#      - name: Rename APK
-#        run: mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
-#
-#      - name: Upload APK
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: ${{ steps.get_apk_name.outputs.APK_NAME }}.apk
-#          path: app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
+      - name: Get APK name
+        id: get_apk_name
+        run: echo "APK_NAME=demo-${{ steps.get_curr_branch.outputs.BRANCH_NAME }}-${{ steps.get_curr_date.outputs.DATE }}-${{ steps.apk-info.outputs.version-name }}" >> $GITHUB_OUTPUT
+      #        steps.get_apk_name.outputs.APK_NAME
+
+      - name: Rename APK
+        run: mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.get_apk_name.outputs.APK_NAME }}.apk
+          path: app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
 
 
-#  test:
-#    runs-on: 'ubuntu-latest'
-#    steps:
-#      - name: Checkout Repo
-#        uses: actions/checkout@v3
-#
-#      - name: Run all the tests
-#        run: ./gradlew test
+  test:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Run all the tests
+        run: ./gradlew test
 
