@@ -12,21 +12,28 @@ on:
 
 # Jobs to be run in this workflow
 jobs:
- ktlint:
-   runs-on: 'ubuntu-latest'
-   steps:
-     - name: Checkout Repo
-       uses: actions/checkout@v3
+  build:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
-     - name: Run ktlint
-       run: ./gradlew ktlintCheck
+      - name: Build project
+        run: ./gradlew assembleDebug
 
- test:
-   runs-on: 'ubuntu-latest'
-   steps:
-     - name: Checkout Repo
-       uses: actions/checkout@v3
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: demo-ci-debug-${GITHUB_REF##*/}.apk
+          path: app/build/outputs/apk/debug/example-debug.apk
 
-     - name: Run all the tests
-       run: ./gradlew test
+
+  test:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Run all the tests
+        run: ./gradlew test
 
