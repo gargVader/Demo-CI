@@ -34,11 +34,11 @@ jobs:
       #        steps.get_apk_name.outputs.APK_NAME
       - run: pwd
       - run: find app/build/outputs/apk/debug/*.apk
-#      - name: Get apk info
-#        id: apk-info
-#        uses: hkusu/apk-info-action@v1
-#        with:
-#          apk-path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Get apk info
+        id: apk-info
+        uses: hkusu/apk-info-action@v1
+        with:
+          apk-path: app/build/outputs/apk/debug/app-debug.apk
 #      - name: Show apk info
 #        run: |
 #          echo '${{ steps.apk-info.outputs.application-name }}'
