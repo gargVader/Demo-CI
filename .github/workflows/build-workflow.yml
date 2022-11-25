@@ -18,20 +18,21 @@ jobs:
 #      - name: Build project
 #        run: ./gradlew assembleDebug
 
-      - name: Get current date
-        id: get_curr_date
-        run: echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+#      - name: Get current date
+#        id: get_curr_date
+#        run: echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
       #        steps.get_curr_date.outputs.DATE
 
-      - name: Get current branch name
-        id: get_curr_branch
-        run: echo "BRANCH_NAME=${{ github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
+#      - name: Get current branch name
+#        id: get_curr_branch
+#        run: echo "BRANCH_NAME=${{ github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
       #        steps.get_curr_branch.outputs.BRANCH_NAME
 
-      - name: Get APK name
-        id: get_apk_name
-        run: echo "APK_NAME=demo-${{ steps.get_curr_branch.outputs.BRANCH_NAME }}-${{ steps.get_curr_date.outputs.DATE }}" >> $GITHUB_OUTPUT
+#      - name: Get APK name
+#        id: get_apk_name
+#        run: echo "APK_NAME=demo-${{ steps.get_curr_branch.outputs.BRANCH_NAME }}-${{ steps.get_curr_date.outputs.DATE }}" >> $GITHUB_OUTPUT
       #        steps.get_apk_name.outputs.APK_NAME
+      - run: aapt dump badging app/build/outputs/apk/debug/app-debug.apk
 
 #      - name: Rename APK
 #        run: mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/${{ steps.get_apk_name.outputs.APK_NAME }}.apk
